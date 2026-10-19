@@ -11,6 +11,22 @@
 
     <name>aut-rain-bom</name>
     <description>aut-rain的项目统一依赖版本 BOM</description>
+    <url>https://github.com/aut-rain/aut-rain-bom</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/aut-rain/aut-rain-bom.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/aut-rain/aut-rain-bom.git</developerConnection>
+        <url>https://github.com/aut-rain/aut-rain-bom</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <developers>
         <developer>
@@ -19,6 +35,48 @@
             <email>2545946621@qq.com</email>
         </developer>
     </developers>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Central Portal requires signed published artifacts. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Publishes to the Sonatype Central Portal. -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.8.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <properties>
         <java.version>21</java.version>

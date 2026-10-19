@@ -41,3 +41,23 @@ com.autrain:aut-rain-bom:1.0.0
 
 作者：zzy（aut-rain）  
 邮箱：2545946621@qq.com
+
+## 发布到 Maven Central
+
+项目通过 GitHub Actions 发布到 Sonatype Maven Central Portal。首次发布前需要完成以下准备：
+
+1. 在 Central Portal 验证 `com.autrain` 命名空间，并创建发布令牌。
+2. 创建用于签名的 GPG 密钥，将 ASCII armored 私钥上传到 GitHub Actions secret `MAVEN_GPG_PRIVATE_KEY`。
+3. 在 GitHub 仓库中配置以下 Actions secrets：
+   - `CENTRAL_USERNAME`：Central Portal 发布令牌的用户名。
+   - `CENTRAL_PASSWORD`：Central Portal 发布令牌的密码。
+   - `MAVEN_GPG_PRIVATE_KEY`：GPG ASCII armored 私钥。
+   - `MAVEN_GPG_PASSPHRASE`：GPG 私钥口令。
+4. 修改 `pom.xml` 中的 `<version>`，提交并推送后创建版本标签：
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+标签推送后，GitHub Actions 会执行签名并发布。版本发布后不可覆盖，应使用新的版本号发布修订版本。

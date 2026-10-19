@@ -1,0 +1,11 @@
+# IDE files
+.idea/
+*.iml
+
+# Maven output
+target/
+
+# Local Maven settings and signing material
+settings.xml
+*.gpg
+*.asc
