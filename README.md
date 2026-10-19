@@ -44,6 +44,8 @@ io.github.aut-rain:aut-rain-bom:1.0.0
 
 ## 发布到 Maven Central
 
+日常升级、验证、发布重试与故障排查请参阅 [迭代维护说明书](docs/迭代维护说明书.md)。
+
 项目通过 GitHub Actions 发布到 Sonatype Maven Central Portal。首次发布前需要完成以下准备：
 
 1. 在 Central Portal 验证 `io.github.aut-rain` 命名空间，并创建发布令牌。
