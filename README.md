@@ -1,16 +1,14 @@
 # aut-rain-bom
 
-aut-rain 的项目统一依赖版本 BOM。
+## 项目介绍
 
-## 用途
+aut-rain 的项目统一依赖版本 BOM，为 Java 项目提供统一的第三方依赖版本管理，覆盖 Spring Boot、Spring Cloud、Dubbo、消息队列、数据库、缓存、对象存储、XXL-JOB 和常用工具库。
 
-集中管理常用 Java、Spring、RPC、消息、数据库、缓存、对象存储和工具库的兼容版本。该项目只提供 Maven `dependencyManagement`，不包含运行时代码，也不会自动引入任何依赖。
+项目通过 Maven `dependencyManagement` 管理版本，不包含运行时代码。导入 BOM 不会自动引入依赖，使用方按需选择所需组件。
 
 ## 使用方式
 
-当前开发版本为 `1.1.0`（尚未发布），新增 XXL-JOB 执行器版本管理。发布前可通过 `mvn install` 在本地试用；已发布的 `1.0.0` 不包含此依赖管理。
-
-在使用方项目的 `pom.xml` 中导入：
+在项目的 `pom.xml` 中导入 BOM：
 
 ```xml
 <dependencyManagement>
@@ -26,59 +24,34 @@ aut-rain 的项目统一依赖版本 BOM。
 </dependencyManagement>
 ```
 
-导入后按需声明依赖即可省略版本号，例如：
+选择已发布到 Maven Central 或已安装到本地仓库的版本。导入后，在 `dependencies` 中声明所需依赖，无需重复填写受管理的版本号：
 
 ```xml
-<dependency>
-    <groupId>org.mybatis.spring.boot</groupId>
-    <artifactId>mybatis-spring-boot-starter</artifactId>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.xuxueli</groupId>
+        <artifactId>xxl-job-core</artifactId>
+    </dependency>
+</dependencies>
 ```
 
-## XXL-JOB
+BOM 管理依赖版本，Java 编译版本、构建插件以及组件运行配置由使用方项目设置。XXL-JOB 仍需自行配置执行器并连接独立部署的调度中心。
 
-导入本 BOM 后添加执行器 SDK，无需声明版本：
+## 作者信息
 
-```xml
-<dependency>
-    <groupId>com.xuxueli</groupId>
-    <artifactId>xxl-job-core</artifactId>
-</dependency>
-```
+- 作者：zzy
+- 昵称：aut-rain
+- 邮箱：2545946621@qq.com
+- GitHub：[aut-rain](https://github.com/aut-rain)
 
-管理版本为 `3.3.0`，其上游使用 Spring Boot 3.5 / Spring 6.2，适合当前 BOM 的技术基线。`3.5.0` 是更新的正式版，但上游已使用 Spring Boot 4 / Spring 7，且涉及通信协议调整，因此暂不作为此版本的默认选择。
+## 开源协议
 
-`xxl-job-core` 不是自动配置 starter。使用方需按官方示例配置 `XxlJobSpringExecutor`、调度中心地址、执行器名称、访问令牌和日志路径，并注册任务。调度中心 `xxl-job-admin` 单独部署，建议与执行器采用相同版本；本 BOM 不管理调度中心应用或第三方 starter。
-
-选型依据及验证范围见 [1.1.0 变更说明](docs/releases/1.1.0.md)。
-
-## 坐标
-
-```text
-io.github.aut-rain:aut-rain-bom:1.1.0
-```
-
-作者：zzy（aut-rain）  
-邮箱：2545946621@qq.com
-
-## 发布到 Maven Central
-
-日常升级、验证、发布重试与故障排查请参阅 [迭代维护说明书](docs/迭代维护说明书.md)。
-
-项目通过 GitHub Actions 发布到 Sonatype Maven Central Portal。首次发布前需要完成以下准备：
-
-1. 在 Central Portal 验证 `io.github.aut-rain` 命名空间，并创建发布令牌。
-2. 创建用于签名的 GPG 密钥，将 ASCII armored 私钥上传到 GitHub Actions secret `MAVEN_GPG_PRIVATE_KEY`。
-3. 在 GitHub 仓库中配置以下 Actions secrets：
-   - `CENTRAL_USERNAME`：Central Portal 发布令牌的用户名。
-   - `CENTRAL_PASSWORD`：Central Portal 发布令牌的密码。
-   - `MAVEN_GPG_PRIVATE_KEY`：GPG ASCII armored 私钥。
-   - `MAVEN_GPG_PASSPHRASE`：GPG 私钥口令。
-4. 修改 `pom.xml` 中的 `<version>`，提交并推送后创建版本标签：
-
-```bash
-git tag -a v1.1.0 -m "release: v1.1.0"
-git push origin v1.1.0
-```
-
-标签推送后，GitHub Actions 会执行签名并发布。版本发布后不可覆盖，应使用新的版本号发布修订版本。
+本项目采用 [MIT License](LICENSE) 开源协议。所管理的第三方依赖遵循各自的许可证。
