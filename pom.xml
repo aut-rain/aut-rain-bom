@@ -6,7 +6,7 @@
 
     <groupId>io.github.aut-rain</groupId>
     <artifactId>aut-rain-bom</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <name>aut-rain-bom</name>
@@ -91,6 +91,9 @@
         <dubbo.version>3.3.6</dubbo.version>
         <rocketmq-spring.version>2.3.4</rocketmq-spring.version>
 
+        <!-- 调度执行器：选择与 Spring Boot 3.5 / Spring 6.2 同基线的正式版本 -->
+        <xxl-job.version>3.3.0</xxl-job.version>
+
         <!-- Web 流量治理 -->
         <sentinel.version>1.8.9</sentinel.version>
 
@@ -161,6 +164,13 @@
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-registry-nacos</artifactId>
                 <version>${dubbo.version}</version>
+            </dependency>
+
+            <!-- 分布式任务调度：执行器 SDK；调度中心单独部署 -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
 
             <!-- 流量治理 -->
