@@ -14,7 +14,7 @@ aut-rain 的项目统一依赖版本 BOM。
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>com.autrain</groupId>
+            <groupId>io.github.aut-rain</groupId>
             <artifactId>aut-rain-bom</artifactId>
             <version>1.0.0</version>
             <type>pom</type>
@@ -36,7 +36,7 @@ aut-rain 的项目统一依赖版本 BOM。
 ## 坐标
 
 ```text
-com.autrain:aut-rain-bom:1.0.0
+io.github.aut-rain:aut-rain-bom:1.0.0
 ```
 
 作者：zzy（aut-rain）  
@@ -46,7 +46,7 @@ com.autrain:aut-rain-bom:1.0.0
 
 项目通过 GitHub Actions 发布到 Sonatype Maven Central Portal。首次发布前需要完成以下准备：
 
-1. 在 Central Portal 验证 `com.autrain` 命名空间，并创建发布令牌。
+1. 在 Central Portal 验证 `io.github.aut-rain` 命名空间，并创建发布令牌。
 2. 创建用于签名的 GPG 密钥，将 ASCII armored 私钥上传到 GitHub Actions secret `MAVEN_GPG_PRIVATE_KEY`。
 3. 在 GitHub 仓库中配置以下 Actions secrets：
    - `CENTRAL_USERNAME`：Central Portal 发布令牌的用户名。
